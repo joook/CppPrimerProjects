@@ -14,14 +14,13 @@ void print(const vector<string> &, int);
 int main()
 {
     char c = '\'';
-    string s = "all about money";
+    string s = "not about money";
     char *cp = &c;
     //char *cp = &s; //This doesn't work.
-    string t = "ST";
     vector<string> v{"aa", "bb", "cc"}; //This needs "-std=c++11".
 
     print(cp);
-    print(t);
+    print(s);
     print(v, 2);
 
     return 0;
