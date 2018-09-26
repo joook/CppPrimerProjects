@@ -7,7 +7,7 @@ using std::string;
 
 //typedef string::size_type size_t
 
-string make_plural(size_t ctr, const string &word, const string &ending = "s");
+string make_plural(size_t, const string &, const string &ending = "s");
 
 int main()
 {
