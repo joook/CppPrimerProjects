@@ -40,6 +40,12 @@ public:
         DisplayContent[Cursor] = Charactor;
     }
 
+    void setContent(Position X, Position Y, char Charactor)
+    {
+        Cursor = X+Y*Width;
+        DisplayContent[Cursor] = Charactor;
+    }
+
 private:
     Position Cursor = 0;
     Position Height = 0;

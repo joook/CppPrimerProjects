@@ -7,7 +7,7 @@ int main()
 {
     Screen::Position TempWidth = 40;
     Screen::Position TempHeight = 10;
-    Screen TempScr(TempWidth, TempHeight, '.');
+    Screen TempScr(TempWidth, TempHeight, 'x');
 
     for(Screen::Position i = 0; i != TempWidth/2; i++)
     {
