@@ -9,6 +9,9 @@ class WindowManager
 public:
     using ScreenIndex = std::vector<Screen>::size_type;
 
+    WindowManager(std::vector<Screen> TempV = {}) :
+        ScreenGroup(TempV) {}
+
     void addScreen(Screen TempScr)
     {
         ScreenGroup.push_back(TempScr);
