@@ -13,11 +13,11 @@ int main()
     getline(cin, TempString);
     try
     {
-        YearMonthDay Date001(TempString);
+        YearMonthDate Date001(TempString);
         cout << "It's standard form is: " << endl;
         cout << Date001.getYear() << ".";
         cout << Date001.getMonth() << ".";
-        cout << Date001.getDay() << endl;
+        cout << Date001.getDate() << endl;
     }
     catch(out_of_range Err)
     {
