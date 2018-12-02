@@ -10,6 +10,19 @@ class CalculateItem
 public:
     void clear()
     {
+        /*
+        It is not good using an initial value 2018 as identifier,
+        between number and operator.
+        There is a good solution in answer book: 
+        when it is a number, Operator = "Number",
+        when it is not a number, for example, a left bracket, Operator = "(".
+
+        There is also a good method in answer book, as it uses ENUM to 
+        limit the possible type of operator.
+
+        Making a constructor function may also be convenient to push an 
+        object to stack.
+        */
         Number = 2018;
         Operator.clear();
     }
@@ -52,6 +65,11 @@ Expression example:"9 - (12 - (5+3))"
     int TempNumInt;
     CalculateItem TempItem;
 
+    /*
+    Instead of using iterator, using index of string can make it easier 
+    to get a whole number at a time, especially when it is a float number.
+    Related function is stoi(string, index) or stod(string, index).
+    */
     for(auto Itr = Expression.begin(); Itr != Expression.end(); Itr++)
     {
         TempItem.clear();

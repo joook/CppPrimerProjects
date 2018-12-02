@@ -1,0 +1,5 @@
+north south east west
+apple peach grape banana
+pen desk drawer paper
+screen mouse keyboard button
+mouse cat dog cow
