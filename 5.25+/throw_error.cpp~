@@ -28,7 +28,7 @@ bool askTryAgain()
     char TryAgain;
     cout << "Try again? (y or n)" << endl;
     cin >> TryAgain;
-    if(!cin || TryAgain != 'y')
+    if(!cin || TryAgain == 'n')
     {
         ReturnVal = false;
     }

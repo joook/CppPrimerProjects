@@ -25,14 +25,13 @@ int divideNum(int Dividend, int Divider)
 int main()
 {
     int Dividend, Divider, Quotient;
-    char c;
 
     //cin.tie(&cout);
 
     cout << "Input dividend: " << endl;
     cin >> Dividend;
 
-    while((c = cin.get()) && (c != '\n') && (c != EOF))
+    while((char c = cin.get()) && (c != '\n') && (c != EOF))
     {
     }
 

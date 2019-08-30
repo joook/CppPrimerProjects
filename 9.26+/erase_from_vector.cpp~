@@ -70,7 +70,7 @@ int main()
     */
 
     /*
-    this works,
+    this works:
     be careful, it is "ia+12", not "ia+11"
     */
     list<int> NumList;
