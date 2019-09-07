@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include <vector>
 #include <fstream>
 #include <algorithm>
@@ -20,9 +21,27 @@ void readWords(const string &FileName, vector<string> &VecStr)
     InFileStream.close();
 }
 
+bool longerThan(const string &WordA, const string &WordB)
+{
+    return WordA.size() > WordB.size();
+}
+
 bool longerThanStd(const string &Word, const string::size_type StdLength)
 {
     return Word.size() > StdLength;
+}
+
+void biggies(vector<string> &VecStr, const string::size_type StdLength)
+{
+    stable_sort(VecStr.begin(), VecStr.end(), 
+        bind(longerThan, _2, _1)); //after sort, shorter word is in the front
+
+    auto Itr = find_if(VecStr.begin(), VecStr.end(), 
+        bind(longerThanStd, _1, StdLength));
+
+    vector<string>::size_type WordCnt = VecStr.cend()-Itr;
+    cout << "The number of words longer than " << StdLength;
+    cout << " is: " << WordCnt << "." << endl;
 }
 
 int main(int argc, char *argv[])
@@ -30,7 +49,6 @@ int main(int argc, char *argv[])
     string FileName;
     vector<string> VecStr;
     string::size_type StdLength;
-    vector<string>::size_type WordCnt;
 
     if(argc == 2)
     {
@@ -49,10 +67,7 @@ int main(int argc, char *argv[])
         throw runtime_error("Invalid input format, quit.");
     }
 
-    WordCnt = count_if(VecStr.cbegin(), VecStr.cend(), 
-        bind(longerThanStd, _1, StdLength));
-    cout << "The number of words longer than " << StdLength;
-    cout << " is: " << WordCnt << "." << endl;
+    biggies(VecStr, StdLength);
 
     return 0;
 }
