@@ -14,6 +14,7 @@ void readInput(const string &FileName, vector<pair<string, int>> &RankVec)
     {
         RankVec.clear();
         string Line;
+        //see a better answer in answer book
         while(getline(FileStream, Line))
         {
             istringstream StringStream(Line);
