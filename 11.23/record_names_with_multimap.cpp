@@ -8,8 +8,17 @@ using namespace std;
 
 void insertName(multimap<string, vector<string>> &FamilyMap, const string &FamilyName, const vector<string> &GivenNameVec)
 {
-    FamilyMap.insert(make_pair(FamilyName, GivenNameVec));
-    //FamilyMap.insert({FamilyName, GivenNameVec});
+    //FamilyMap.insert(make_pair(FamilyName, GivenNameVec));
+    FamilyMap.insert({FamilyName, GivenNameVec});
+}
+
+void removeFamilyName(multimap<string, vector<string>> &FamilyMap, const string &FamilyName)
+{
+    FamilyMap.erase(FamilyName);
+}
+
+void removeGivenName(multimap<string, vector<string>> &FamilyMap, const string &FamilyName, const vector<string> &GivenNameVec)
+{
 }
 
 void printFamilyTree(const multimap<string, vector<string>> &FamilyMap)
@@ -55,6 +64,28 @@ int main()
         }
 
         insertName(FamilyMap, FamilyName, GivenNameVec);
+
+        while((c = cin.get()) && (c != '\n') && (c != EOF))
+        {
+        }
+
+        cout << "Remove any family? y or n." << endl;
+        char RemoveFlag;
+        cin >> RemoveFlag;
+        if(!cin || RemoveFlag != 'y')
+        {
+            //go on
+        }
+        else
+        {
+            while((c = cin.get()) && (c != '\n') && (c != EOF))
+            {
+            }
+
+            cout << "Type in family name: " << endl;
+            cin >> FamilyName;
+            removeFamilyName(FamilyMap, FamilyName);
+        }
 
         while((c = cin.get()) && (c != '\n') && (c != EOF))
         {
