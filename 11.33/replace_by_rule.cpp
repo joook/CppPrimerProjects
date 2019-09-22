@@ -23,7 +23,14 @@ void readRule(const string &RuleFile, map<string, string> &RuleMap)
             {
                 string Key = Line.substr(0, Pos);
                 string Value = Line.substr(Pos+2);
-                RuleMap[Key] = Value;
+                if(Key.size() > 0 && Value.size() > 0)
+                {
+                    RuleMap[Key] = Value;
+                }
+                else
+                {
+                    //dump key-value
+                }
             }
             else
             {
@@ -74,6 +81,8 @@ void replaceWord(const map<string, string> &RuleMap, vector<vector<string>> &Tex
 {
     for(auto &LineVec : TextVec)
     {
+        //here i find every map-word in vector, then replace
+        //can also try find every vector-word in map, then replace
         for(const auto Pair : RuleMap)
         {
             replace(LineVec.begin(), LineVec.end(), Pair.first, Pair.second);
