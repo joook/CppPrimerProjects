@@ -1,0 +1,4 @@
+u->you
+m->me
+r->are
+k->ok
