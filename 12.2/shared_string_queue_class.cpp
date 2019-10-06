@@ -1,5 +1,5 @@
 #include <iostream>
-#include <vector>
+#include <list>
 #include <string>
 #include <memory>
 #include <initializer_list>
@@ -19,16 +19,16 @@ public:
     size_t size();
     bool isEmpty();
 private:
-    shared_ptr<vector<string>> m_pQueue;
+    shared_ptr<list<string>> m_pQueue;
 };
 
 SharedStringQueue::SharedStringQueue()
-: m_pQueue(make_shared<vector<string>>())
+: m_pQueue(make_shared<list<string>>())
 {
 }
 
 SharedStringQueue::SharedStringQueue(initializer_list<string> InitList)
-: m_pQueue(make_shared<vector<string>>(InitList))
+: m_pQueue(make_shared<list<string>>(InitList))
 {
 }
 
@@ -39,13 +39,27 @@ void SharedStringQueue::pushStr(const string &NewStr)
 
 void SharedStringQueue::popStr()
 {
-    auto ItrBeg = m_pQueue->begin();
-    m_pQueue->erase(ItrBeg);
+    if(m_pQueue->empty())
+    {
+        //do nothing
+    }
+    else
+    {
+        auto ItrBeg = m_pQueue->begin();
+        m_pQueue->erase(ItrBeg);
+    }
 }
 
 const string &SharedStringQueue::frontStr()
 {
-    return *(m_pQueue->begin());
+    if(m_pQueue->empty())
+    {
+        throw runtime_error("Error: queue is empty.");
+    }
+    else
+    {
+        return *(m_pQueue->begin());
+    }
 }
 
 size_t SharedStringQueue::size()
@@ -64,11 +78,21 @@ int main()
     SharedStringQueue TempQueue;
     TempQueue = OriQueue;
     TempQueue.pushStr("mouse");
-    TempQueue.popStr();
-    cout << "Front str: " << TempQueue.frontStr() << endl;
-    OriQueue.popStr();
-    cout << "Front str: " << TempQueue.frontStr() << endl;
-    TempQueue.popStr();
-    cout << "Front str: " << OriQueue.frontStr() << endl;
+
+    try
+    {
+        TempQueue.popStr();
+        cout << "Front str: " << TempQueue.frontStr() << endl;
+        OriQueue.popStr();
+        cout << "Front str: " << TempQueue.frontStr() << endl;
+        TempQueue.popStr();
+        cout << "Front str: " << OriQueue.frontStr() << endl;
+        TempQueue.popStr();
+        cout << "Front str: " << OriQueue.frontStr() << endl;
+    }
+    catch(runtime_error Err)
+    {
+        cerr << Err.what() << endl;
+    }
     return 0;
 }
