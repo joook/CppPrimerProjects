@@ -6,6 +6,12 @@
 #include <memory>
 #include "shared_string_queue_class.h"
 
+//SharedStringQueuePtr is a pointer to SharedStringQueue,
+//the usage of QueuePtr is the same with Queue,
+//like push(), pop(), front()...
+//except that QueuePtr could point to nothing,
+//and in this condition dereferencing it will throw an exception.
+//Thus the right way to use QueuePtr is to use it in a try-catch statement.
 class SharedStringQueuePtr
 {
 public:

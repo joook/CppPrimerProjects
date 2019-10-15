@@ -8,6 +8,10 @@
 
 class SharedStringQueuePtr;
 
+//SharedStringQueue is a shared string queue,
+//when original queue is copied,
+//the new queue share the same queue with it,
+//an operate will change them at the same time
 class SharedStringQueue
 {
 friend class SharedStringQueuePtr;
