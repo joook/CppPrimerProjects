@@ -108,7 +108,15 @@ int askKeyWord(string &KeyWord)
 int searchWord(const string &KeyWord, const map<string, set<size_t>> &WordMap, set<size_t> &SearchResult)
 {
     int Ret = RET_OK;
-    SearchResult = (WordMap.find(KeyWord))->second;
+    auto Itr = WordMap.find(KeyWord);
+    if(Itr != WordMap.cend())
+    {
+        SearchResult = Itr->second;
+    }
+    else
+    {
+        //do nothing
+    }
     return Ret;
 }
 
@@ -116,7 +124,7 @@ int printResult(const string &KeyWord, const set<size_t> &SearchResult, const ve
 {
     int Ret = RET_OK;
     cout << '\"' << KeyWord << '\"' << "appears in ";
-    cout << SearchResult.size() << " lines: " << endl;
+    cout << SearchResult.size() << " line(s): " << endl;
     for(size_t Pos : SearchResult)
     {
         cout << "    " << "(line " << Pos << ")";
