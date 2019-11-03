@@ -20,9 +20,12 @@ public:
     //if you copy this StrPtr, the new StrPtr point to its own string
     StrPtr & operator=(const StrPtr &InitPtr)
     {
+        auto TempPtr = new std::string(*(InitPtr.m_StrPtr));
         delete m_StrPtr;
-        m_StrPtr = new std::string(*(InitPtr.m_StrPtr));
+
+        m_StrPtr = TempPtr;
         m_Pos = InitPtr.m_Pos;
+
         return *this;
     }
 
