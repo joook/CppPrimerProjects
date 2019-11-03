@@ -17,9 +17,10 @@ public:
     //the usage in main() will cause segment fault
     StrPtr & operator=(const StrPtr &InitPtr)
     {
+        std::string *TempPtr = new string(*(InitPtr.m_StrPtr));
         delete m_StrPtr;
 
-        m_StrPtr = new string(*(InitPtr.m_StrPtr));
+        m_StrPtr = TempPtr;
         m_Pos = InitPtr.m_Pos;
 
         return *this;
