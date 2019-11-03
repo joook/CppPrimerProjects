@@ -9,7 +9,6 @@ public:
     StrPtr(const StrPtr &InitPtr);
 
     StrPtr & operator=(const StrPtr &InitPtr);
-    StrPtr & operator=(const std::string &InitStr);
 
     ~StrPtr();
 

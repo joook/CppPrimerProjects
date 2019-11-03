@@ -28,17 +28,6 @@ StrPtr & StrPtr::operator=(const StrPtr &InitPtr)
     return *this;
 }
 
-StrPtr & StrPtr::operator=(const string &InitStr)
-{
-    auto TempPtr = new string(InitStr);
-    delete m_StrPtr;
-
-    m_StrPtr = TempPtr;
-    m_Pos = 0;
-
-    return *this;
-}
-
 StrPtr::~StrPtr()
 {
     delete m_StrPtr;

@@ -18,9 +18,5 @@ int main()
     Str2.print();
     cout << *Str2 << endl;
 
-    Str2 = "string 4th";
-    Str2.print();
-    cout << *Str2 << endl;
-
     return 0;
 }
