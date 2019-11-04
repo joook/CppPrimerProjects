@@ -37,6 +37,7 @@ StrPtr & StrPtr::operator=(StrPtr &InitPtr)
     if(*m_PtrCount == 0)
     {
         delete m_StrPtr;
+        delete m_PtrCount;
     	cout << "StrPtr deleted." << endl;
     }
     else
@@ -53,13 +54,14 @@ StrPtr & StrPtr::operator=(StrPtr &InitPtr)
 
 StrPtr::~StrPtr()
 {
-    cout << "StrPtr deconstructed." << endl;
+    cout << "StrPtr destructed." << endl;
 
     (*m_PtrCount)--;
     cout << "*m_PtrCount: " << *m_PtrCount << endl;
     if(*m_PtrCount == 0)
     {
         delete m_StrPtr;
+        delete m_PtrCount;
     	cout << "StrPtr deleted." << endl;
     }
     else
