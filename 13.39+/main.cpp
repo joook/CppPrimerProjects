@@ -12,12 +12,6 @@ int main()
         Vec1.pushBack("PPP"+to_string(i));
     }
 
-    cout << "Strings in the original vector are: " << endl;
-    for(auto Begin = Vec1.begin(); Begin != Vec1.end(); Begin++)
-    {
-        cout << *Begin << endl;
-    }
-
     StrVec Vec2 = Vec1;
 
     cout << "Strings in the copied vector are: " << endl;

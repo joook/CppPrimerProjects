@@ -19,8 +19,9 @@ public:
     size_t size() { return (m_FirstFree-m_First); }
     size_t capacity() { return (m_Last-m_First); }
 private:
-    void checkCapacity();
+    void checkMemory();
     void reallocateMemory();
+    void reserveMemory(size_t NewCapacity);
     std::pair<std::string *, std::string *> copyMemory(std::string *OriBegin, std::string *OriEnd);
     void freeMemory();
 private:

@@ -40,50 +40,62 @@ StrVec::~StrVec()
 
 void StrVec::pushBack(const string &NewStr)
 {
-    checkCapacity();
+    checkMemory();
     m_Allocator.construct(m_FirstFree, NewStr);
     m_FirstFree++;
 }
 
-void StrVec::checkCapacity()
+void StrVec::checkMemory()
 {
-    if(size() < capacity())
+    if(size() == capacity())
     {
+        reallocateMemory();
     }
     else
     {
-        reallocateMemory();
     }
 }
 
 void StrVec::reallocateMemory()
 {
-    size_t Capacity;
+    size_t NewCapacity;
     if(capacity() != 0)
     {
-        Capacity = 2*capacity();
+        NewCapacity = 2*capacity();
     }
     else
     {
-        Capacity = 1;
+        NewCapacity = 1;
     }
 
-    string *NewFirst = m_Allocator.allocate(Capacity);
+    reserveMemory(NewCapacity);
+}
 
-    auto Target = NewFirst;
-    auto Source = m_First;
-    for(size_t i = 0; i != size(); i++)
+void StrVec::reserveMemory(size_t NewCapacity)
+{
+    if(NewCapacity > capacity())
     {
-        m_Allocator.construct(Target, std::move(*Source));
-        Target++;
-        Source++;
+        string *NewFirst = m_Allocator.allocate(NewCapacity);
+
+        auto Target = NewFirst;
+        auto Source = m_First;
+        for(size_t i = 0; i != size(); i++)
+        {
+            m_Allocator.construct(Target, std::move(*Source));
+            Target++;
+            Source++;
+        }
+
+        freeMemory();
+
+        m_First = NewFirst;
+        m_FirstFree = Target;
+        m_Last = NewFirst+NewCapacity;
     }
-
-    freeMemory();
-
-    m_First = NewFirst;
-    m_FirstFree = Target;
-    m_Last = NewFirst+Capacity;
+    else
+    {
+        //do nothing
+    }
 }
 
 pair<string *, string *> StrVec::copyMemory(string *OriBegin, string *OriEnd)
@@ -94,7 +106,7 @@ pair<string *, string *> StrVec::copyMemory(string *OriBegin, string *OriEnd)
     {
         size_t Size = OriEnd-OriBegin;
         string *NewBegin = m_Allocator.allocate(Size);
-
+        /*
         auto Target = NewBegin;
         auto Source = OriBegin;
         for(size_t i = 0; i != Size; i++)
@@ -103,8 +115,8 @@ pair<string *, string *> StrVec::copyMemory(string *OriBegin, string *OriEnd)
             Target++;
             Source++;
         }
-        
-        //uninitialized_copy(OriBegin, OriEnd, NewBegin);
+        */
+        uninitialized_copy(OriBegin, OriEnd, NewBegin);
 
         NewMemory.first = NewBegin;
         NewMemory.second = NewBegin+Size;
