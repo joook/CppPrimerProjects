@@ -23,9 +23,9 @@ int main()
 
     VecStr.push_back(Str1);
     printVecInfo(VecStr);
-    VecStr.push_back(std::move(Str2));
+    VecStr.push_back(Str1);
     printVecInfo(VecStr);
-    VecStr.push_back("ijkl");
+    VecStr.push_back(std::move(Str2));
     printVecInfo(VecStr);
     VecStr.push_back("ijkl");
     printVecInfo(VecStr);

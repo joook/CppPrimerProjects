@@ -12,7 +12,8 @@ public:
     Str(size_t Length, const char Char);
     Str(const Str &OriStr);
     Str(Str &&OriStr) noexcept;
-    Str & operator=(const Str &OriStr);
+    Str &operator=(const Str &OriStr);
+    Str &operator=(Str &&OriStr) noexcept;
     ~Str();
 public:
     void pushBack(const char &NewChar);

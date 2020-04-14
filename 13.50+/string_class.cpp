@@ -72,7 +72,7 @@ Str::Str(Str &&OriStr) noexcept
     cout << "Str moved." << endl;
 }
 
-Str & Str::operator=(const Str &OriStr)
+Str &Str::operator=(const Str &OriStr)
 {
     auto Pair = copyMemory(OriStr.m_First, OriStr.m_FirstFree);
 
@@ -81,6 +81,29 @@ Str & Str::operator=(const Str &OriStr)
     m_First = Pair.first;
     m_FirstFree = Pair.second;
     m_Last = Pair.second;
+    cout << "Str assigned a value." << endl;
+
+    return *this;
+}
+
+Str &Str::operator=(Str &&OriStr) noexcept
+{
+    if(this != &OriStr)
+    {
+        freeMemory();
+
+        m_First = OriStr.m_First;
+        m_FirstFree = OriStr.m_FirstFree;
+        m_Last = OriStr.m_Last;
+
+        OriStr.m_First = nullptr;
+        OriStr.m_FirstFree = nullptr;
+        OriStr.m_Last = nullptr;
+    }
+    else
+    {
+    }
+
     cout << "Str assigned a value." << endl;
 
     return *this;
