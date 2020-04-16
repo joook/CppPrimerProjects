@@ -11,6 +11,7 @@ StrVec::StrVec()
 , m_FirstFree(nullptr)
 , m_Last(nullptr)
 {
+    cout << "StrVec constructed." << endl;
 }
 
 StrVec::StrVec(initializer_list<string> InitList)
@@ -36,7 +37,7 @@ StrVec::StrVec(initializer_list<string> InitList)
     {
     }
 
-    cout << "StrVec constructed." << endl;
+    cout << "StrVec init-list-constructed." << endl;
 }
 
 StrVec::StrVec(const StrVec &OriStrVec)
