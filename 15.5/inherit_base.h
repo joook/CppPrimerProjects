@@ -4,7 +4,7 @@ class ClassA
 {
 public:
     ClassA();
-    virtual ~ClassA();
+    virtual ~ClassA() = default;
     inline int getState() { return m_State; }
     inline void setState(int NewState) { m_State = NewState; }
 
@@ -15,6 +15,6 @@ private:
 class ClassB: public ClassA
 {
 public:
-    ClassB();
-    ~ClassB();
+    ClassB() = default;
+    ~ClassB() = default;
 };

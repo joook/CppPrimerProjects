@@ -1,4 +1,4 @@
-#include "ClassA.h"
+#include "inherit_base.h"
 
 using std::cout;
 using std::cin;
