@@ -4,7 +4,6 @@
 #include "book_price.h"
 #include <memory>
 #include <map>
-#include <utility>
 
 class Basket
 {
@@ -16,8 +15,9 @@ public:
     double getTotalPrice();
     void printBookList();
 private:
-    //m_BookList records book price strategy and amount for each book id
-    std::map<std::string, std::pair<std::shared_ptr<BookPrice>, size_t>> m_BookList;
+    //records book price strategy and amount for each book id
+    std::map<std::string, std::shared_ptr<BookPrice>> m_BookPriceList;
+    std::map<std::string, size_t> m_BookAmountList;
 };
 
 #endif
