@@ -7,7 +7,8 @@ SharedText QueryBase::m_Text;
 //cannot use make_shared<QueryBase> here, because make_shared will
 //try to make a new QueryBase object, while QueryBase is a virtual class
 Query::Query(const std::string &KeyWord)
-: m_QueryBasePtr(shared_ptr<QueryBase>(new WordQuery(KeyWord)))
+//: m_QueryBasePtr(shared_ptr<QueryBase>(new WordQuery(KeyWord)))
+: m_QueryBasePtr(make_shared<WordQuery>(KeyWord))
 {
 }
 
