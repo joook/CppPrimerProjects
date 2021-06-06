@@ -21,14 +21,14 @@ public:
     SharedVector();
     SharedVector(const std::initializer_list<T>& initList);
     ~SharedVector() = default;
-    SharedVector(SharedVector<T>& originalVector) = default;
+    SharedVector(const SharedVector<T>& originalVector) = default;
     SharedVector(SharedVector<T>&& originalVector) = default;
-    SharedVector& operator=(SharedVector<T>& originalVector) = default;
+    SharedVector& operator=(const SharedVector<T>& originalVector) = default;
     SharedVector& operator=(SharedVector<T>&& originalVector) = default;
 
-    //const SharedVectorItr<T> beginItr() const { return SharedVectorItr<T>{m_SharedVectorImpl, 0}; }
+    const SharedVectorItr<T> beginItr() const { return SharedVectorItr<T>{*this, 0}; }
     SharedVectorItr<T> beginItr() { return SharedVectorItr<T>{*this, 0}; }
-    //const SharedVectorItr<T> endItr() const { return m_SharedVectorImpl->end(); }
+    const SharedVectorItr<T> endItr() const { return SharedVectorItr<T>{*this, size()}; }
     SharedVectorItr<T> endItr() { return SharedVectorItr<T>{*this, size()};}
 
     size_t size() const { return m_SharedVectorImpl->size(); }

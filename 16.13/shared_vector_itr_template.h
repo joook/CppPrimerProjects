@@ -30,33 +30,23 @@ public:
     SharedVectorItr();
     SharedVectorItr(const SharedVector<T>& vec, size_t pos);
     ~SharedVectorItr() = default;
-    SharedVectorItr(SharedVectorItr<T>& originalItr) = default;
+    SharedVectorItr(const SharedVectorItr<T>& originalItr) = default;
     SharedVectorItr(SharedVectorItr<T>&& originalItr) = default;
-    SharedVectorItr& operator=(SharedVectorItr<T>& originalItr) = default;
+    SharedVectorItr& operator=(const SharedVectorItr<T>& originalItr) = default;
     SharedVectorItr& operator=(SharedVectorItr<T>&& originalItr) = default;
 
-    //bool isNull() const { return m_SharedVectorPtr.expired(); }
-    const std::shared_ptr<std::vector<T>> getVector() const;
-    std::shared_ptr<std::vector<T>> getVector();
+    inline const std::shared_ptr<std::vector<T>> getVector() const;
+    inline std::shared_ptr<std::vector<T>> getVector();
 
-    const T& operator*() const;
-    T& operator*();
+    inline const T& operator*() const;
+    inline T& operator*();
     SharedVectorItr& operator++() { m_CurrentPosition++; }
     SharedVectorItr& operator++(int) { m_CurrentPosition++; }
-    SharedVectorItr& operator--()
-    {
-        if (m_CurrentPosition > 0)
-        {
-            m_CurrentPosition--;
-        }
-        else
-        {
-            // do nothing
-        }
-    }
+    inline SharedVectorItr& operator--();
+    inline SharedVectorItr& operator--(int);
 
 private:
-    bool checkSize(size_t pos) const;
+    inline bool checkSize(size_t pos) const;
 
 private:
     std::weak_ptr<std::vector<T>> m_SharedVectorPtr;
@@ -106,19 +96,6 @@ std::shared_ptr<std::vector<T>> SharedVectorItr<T>::getVector()
 }
 
 template <typename T>
-bool SharedVectorItr<T>::checkSize(size_t pos) const
-{
-    if (pos < getVector()->size())
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-}
-
-template <typename T>
 const T& SharedVectorItr<T>::operator* () const
 {
     if (checkSize(m_CurrentPosition))
@@ -141,6 +118,45 @@ T&  SharedVectorItr<T>::operator* ()
     else
     {
         throw std::runtime_error("Error: shared vector iterator out of range.");
+    }
+}
+
+template <typename T>
+SharedVectorItr<T>& SharedVectorItr<T>::operator--()
+{
+    if (m_CurrentPosition > 0)
+    {
+        m_CurrentPosition--;
+    }
+    else
+    {
+        // do nothing
+    }
+}
+
+template <typename T>
+SharedVectorItr<T>& SharedVectorItr<T>::operator--(int)
+{
+    if (m_CurrentPosition > 0)
+    {
+        m_CurrentPosition--;
+    }
+    else
+    {
+        // do nothing
+    }
+}
+
+template <typename T>
+bool SharedVectorItr<T>::checkSize(size_t pos) const
+{
+    if (pos < getVector()->size())
+    {
+        return true;
+    }
+    else
+    {
+        return false;
     }
 }
 
