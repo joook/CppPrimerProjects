@@ -5,27 +5,20 @@ template <typename T>
 class MySharedPtr;
 
 template <typename T>
-bool operator== (const MySharedPtr<T>& ptr1, const MySharedPtr<T>& ptr2);
-template <typename T>
-bool operator!= (const MySharedPtr<T>& ptr1, const MySharedPtr<T>& ptr2);
-template <typename T>
-bool operator< (const MySharedPtr<T>& ptr1, const MySharedPtr<T>& ptr2);
-template <typename T>
-bool operator<= (const MySharedPtr<T>& ptr1, const MySharedPtr<T>& ptr2);
-template <typename T>
-bool operator> (const MySharedPtr<T>& ptr1, const MySharedPtr<T>& ptr2);
-template <typename T>
-bool operator>= (const MySharedPtr<T>& ptr1, const MySharedPtr<T>& ptr2);
-
-template <typename T>
 class MySharedPtr
 {
-friend bool operator== <T>(const MySharedPtr<T>& ptr1, const MySharedPtr<T>& ptr2);
-friend bool operator!= <T>(const MySharedPtr<T>& ptr1, const MySharedPtr<T>& ptr2);
-friend bool operator< <T>(const MySharedPtr<T>& ptr1, const MySharedPtr<T>& ptr2);
-friend bool operator<= <T>(const MySharedPtr<T>& ptr1, const MySharedPtr<T>& ptr2);
-friend bool operator> <T>(const MySharedPtr<T>& ptr1, const MySharedPtr<T>& ptr2);
-friend bool operator>= <T>(const MySharedPtr<T>& ptr1, const MySharedPtr<T>& ptr2);
+template <typename V, typename U>
+friend bool operator== (const MySharedPtr<V>& ptr1, const MySharedPtr<U>& ptr2);
+template <typename V, typename U>
+friend bool operator!= (const MySharedPtr<V>& ptr1, const MySharedPtr<U>& ptr2);
+template <typename V, typename U>
+friend bool operator< (const MySharedPtr<V>& ptr1, const MySharedPtr<U>& ptr2);
+template <typename V, typename U>
+friend bool operator<= (const MySharedPtr<V>& ptr1, const MySharedPtr<U>& ptr2);
+template <typename V, typename U>
+friend bool operator> (const MySharedPtr<V>& ptr1, const MySharedPtr<U>& ptr2);
+template <typename V, typename U>
+friend bool operator>= (const MySharedPtr<V>& ptr1, const MySharedPtr<U>& ptr2);
 
 public:
     MySharedPtr();
@@ -267,38 +260,38 @@ void MySharedPtr<T>::show()
     std::cout << "*m_UseCount: " << *m_UseCount << std::endl;
 }
 
-template <typename T>
-bool operator== (const MySharedPtr<T>& ptr1, const MySharedPtr<T>& ptr2)
+template <typename T, typename U>
+bool operator== (const MySharedPtr<T>& ptr1, const MySharedPtr<U>& ptr2)
 {
     return (ptr1.m_Ptr == ptr2.m_Ptr);
 }
 
-template <typename T>
-bool operator!= (const MySharedPtr<T>& ptr1, const MySharedPtr<T>& ptr2)
+template <typename T, typename U>
+bool operator!= (const MySharedPtr<T>& ptr1, const MySharedPtr<U>& ptr2)
 {
     return (ptr1.m_Ptr != ptr2.m_Ptr);
 }
 
-template <typename T>
-bool operator< (const MySharedPtr<T>& ptr1, const MySharedPtr<T>& ptr2)
+template <typename T, typename U>
+bool operator< (const MySharedPtr<T>& ptr1, const MySharedPtr<U>& ptr2)
 {
     return (ptr1.m_Ptr < ptr2.m_Ptr);
 }
 
-template <typename T>
-bool operator<= (const MySharedPtr<T>& ptr1, const MySharedPtr<T>& ptr2)
+template <typename T, typename U>
+bool operator<= (const MySharedPtr<T>& ptr1, const MySharedPtr<U>& ptr2)
 {
     return (ptr1.m_Ptr <= ptr2.m_Ptr);
 }
 
-template <typename T>
-bool operator> (const MySharedPtr<T>& ptr1, const MySharedPtr<T>& ptr2)
+template <typename T, typename U>
+bool operator> (const MySharedPtr<T>& ptr1, const MySharedPtr<U>& ptr2)
 {
     return (ptr1.m_Ptr > ptr2.m_Ptr);
 }
 
-template <typename T>
-bool operator>= (const MySharedPtr<T>& ptr1, const MySharedPtr<T>& ptr2)
+template <typename T, typename U>
+bool operator>= (const MySharedPtr<T>& ptr1, const MySharedPtr<U>& ptr2)
 {
     return (ptr1.m_Ptr >= ptr2.m_Ptr);
 }
