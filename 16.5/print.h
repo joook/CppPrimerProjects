@@ -1,10 +1,10 @@
-#ifndef _MY_FIND_H_
-#define _MY_FIND_H_
+#ifndef _PRINT_H_
+#define _PRINT_H_
 
 #include <iostream>
 
 template <typename T, signed N>
-void myPrint(const T (&someArray)[N])
+void print(const T (&someArray)[N])
 {
 /*
     auto i = 0;

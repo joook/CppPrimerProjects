@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 
-#include "my_print.h"
+#include "print.h"
 
 int main(int argc, char* argv[])
 {
@@ -11,9 +11,9 @@ int main(int argc, char* argv[])
     std::string array2[20] = {"hello", ", ", "world", "!"};
 
     std::cout << "Array1: " << std::endl;
-    myPrint(array1);
+    print(array1);
     std::cout << "Array2: " << std::endl;
-    myPrint(array2);
+    print(array2);
 
     return 0;
 }
