@@ -26,10 +26,10 @@ public:
     SharedVector& operator=(const SharedVector<T>& originalVector) = default;
     SharedVector& operator=(SharedVector<T>&& originalVector) = default;
 
-    const SharedVectorItr<T> beginItr() const { return SharedVectorItr<T>{*this, 0}; }
-    SharedVectorItr<T> beginItr() { return SharedVectorItr<T>{*this, 0}; }
-    const SharedVectorItr<T> endItr() const { return SharedVectorItr<T>{*this, size()}; }
-    SharedVectorItr<T> endItr() { return SharedVectorItr<T>{*this, size()};}
+    const SharedVectorItr<T> begin() const { return SharedVectorItr<T>{*this, 0}; }
+    SharedVectorItr<T> begin() { return SharedVectorItr<T>{*this, 0}; }
+    const SharedVectorItr<T> end() const { return SharedVectorItr<T>{*this, size()}; }
+    SharedVectorItr<T> end() { return SharedVectorItr<T>{*this, size()};}
 
     size_t size() const { return m_SharedVectorImpl->size(); }
     bool isEmpty() const { return m_SharedVectorImpl->empty(); }

@@ -16,12 +16,12 @@ int main()
     vec1.pushBackItem(103);
     vec2.popBackItem();
 
-    for (auto itr = vec.beginItr(); itr != vec.endItr(); itr++)
+    for (auto item : vec2)
     {
-        std::cout << *itr << std::endl;
+        std::cout << item << std::endl;
     }
 
-    for (auto itr = vec1.beginItr(); itr != vec1.endItr(); itr++)
+    for (auto itr = vec1.begin(); itr != vec1.end(); itr++)
     {
         std::cout << *itr << std::endl;
     }
