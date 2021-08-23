@@ -1,97 +1,136 @@
 #include <iostream>
+#include <string>
 
-#include "flip.h"
+#include "pass.h"
 
-void func1(int para1, int para2)
+#define TRACE (std::cout << "[" << __FILE__ << ": " << __FUNCTION__  << "] ")
+
+void func1(int arg)
 {
-    std::cout << "para1: " << para1;
-    std::cout << ", after add: " << ++para1 << std::endl;
-    std::cout << "para2: " << para2;
-    std::cout << ", after minus: " << --para2 << std::endl;
+    TRACE << "Do self plus, inside the func, arg = " << ++arg << std::endl;
 }
 
-void func2(const int para1, int para2)
+void func2(const int arg)
 {
-    std::cout << "para1: " << para1 << std::endl;
-    std::cout << "para2: " << para2;
-    std::cout << ", after minus: " << --para2 << std::endl;
+    TRACE << "Const arg cannot do self plus." << std::endl;
 }
 
-void func3(int& para1, int para2)
+void func3(int& arg)
 {
-    std::cout << "para1: " << para1;
-    std::cout << ", after add: " << ++para1 << std::endl;
-    std::cout << "para2: " << para2;
-    std::cout << ", after minus: " << --para2 << std::endl;
+    TRACE << "Do self plus, inside the func, arg = " << ++arg << std::endl;
 }
 
-void func4(const int& para1, int para2)
+void func4(const int& arg)
 {
-    std::cout << "para1: " << para1 << std::endl;
-    std::cout << "para2: " << para2;
-    std::cout << ", after minus: " << --para2 << std::endl;
+    TRACE << "Const arg cannot do self plus." << std::endl;
 }
 
-void func5(int&& para1, int para2)
+void func5(int&& arg)
 {
-    std::cout << "para1: " << para1;
-    std::cout << ", after add: " << ++para1 << std::endl;
-    std::cout << "para2: " << para2;
-    std::cout << ", after minus: " << --para2 << std::endl;
+    TRACE << "Do self plus, inside the func, arg = " << ++arg << std::endl;
 }
 
-void func6(const int&& para1, int para2)
+void func6(const int&& arg)
 {
-    std::cout << "para1: " << para1 << std::endl;
-    std::cout << "para2: " << para2;
-    std::cout << ", after minus: " << --para2 << std::endl;
+    TRACE << "Const arg cannot do self plus." << std::endl;
 }
 
-void printFlip()
+template <typename F, typename T>
+void passHelper(F func, T&& arg)
 {
+    TRACE << "Before processed, " << "arg = " << arg << std::endl;
+    pass(func, std::forward<T>(arg));
+    TRACE << "After processed, " << "arg = " << arg << std::endl << std::endl;
 }
 
-int main(int argc, char* argv[])
+template <typename F, typename T>
+void passWithFlaw1Helper(F func, T&& arg)
 {
-    const int arg1 = 1;
-    int arg2 = 2;
-    int& arg3 = arg2;
-    const int& arg4 = arg2;
+    TRACE << "Before processed, " << "arg = " << arg << std::endl;
+    passWithFlaw1(func, std::forward<T>(arg));
+    TRACE << "After processed, " << "arg = " << arg << std::endl << std::endl;
+}
 
-    // test using arg1 & arg2
-    printFlip(func1, arg1, arg2);
-    printFlip(func2, arg1, arg2);
-    printFlip(func3, arg1, arg2);
-    printFlip(func4, arg1, arg2);
-    printFlip(func5, arg1, 42);
-    printFlip(func6, arg1, 42);
+template <typename F, typename T>
+void passWithFlaw2Helper(F func, T&& arg)
+{
+    TRACE << "Before processed, " << "arg = " << arg << std::endl;
+    passWithFlaw2(func, std::forward<T>(arg));
+    TRACE << "After processed, " << "arg = " << arg << std::endl << std::endl;
+}
 
-    // test using arg1 & arg3
-    printFlip(func1, arg1, arg3);
-    printFlip(func2, arg1, arg3);
-    printFlip(func3, arg1, arg3);
-    printFlip(func4, arg1, arg3);
+template <typename F, typename T>
+void passWithFlaw3Helper(F func, T&& arg)
+{
+    TRACE << "Before processed, " << "arg = " << arg << std::endl;
+    passWithFlaw3(func, std::forward<T>(arg));
+    TRACE << "After processed, " << "arg = " << arg << std::endl << std::endl;
+}
 
-    // test using arg1 & arg4
-    printFlip(func1, arg1, arg4);
-    printFlip(func2, arg1, arg4);
-    //printFlip(func3, arg1, arg4); // cannot compile
-    printFlip(func4, arg1, arg4);
+int main()
+{
+    int arg1 = 100;
+    const int arg2 = 200;
+    int& arg3 = arg1;
+    const int& arg4 = arg1;
 
-    // test flipWithFlaw1
-    printFlipWithFlaw1(func3, arg1, arg2); // calculate error
-    //printFlipWithFlaw1(func5, arg1, arg2); // cannot compile
-    //printFlipWithFlaw1(func6, arg1, arg2); // cannot compile
+/*
+    // test using lvalue
+    passHelper(func1, arg1);
+    passHelper(func2, arg1);
+    passHelper(func3, arg1);
+    passHelper(func4, arg1);
+    //passHelper(func5, arg1); // cannot compile, normal
+    //passHelper(func6, arg1); // cannot compile, normal
 
-    // test flipWithFlaw2
-    printFlipWithFlaw2(func3, arg1, arg2); // calculate right
-    //printFlipWithFlaw2(func5, arg1, arg2); // cannot compile
-    //printFlipWithFlaw2(func6, arg1, arg2); // cannot compile
+    // test using const-lvalue
+    passHelper(func1, arg2);
+    passHelper(func2, arg2);
+    //passHelper(func3, arg2); // cannot compile, normal
+    passHelper(func4, arg2);
+    //passHelper(func5, arg2); // cannot compile, normal
+    //passHelper(func6, arg2); // cannot compile, normal
 
-    // test flipWithFlaw3
-    printFlipWithFlaw3(func3, arg1, arg2); // calculate right
-    //printFlipWithFlaw3(func5, arg1, arg2); // cannot compile
-    //printFlipWithFlaw3(func6, arg1, arg2); // cannot compile
+    // test using ref-of-lvalue
+    passHelper(func1, arg3);
+    passHelper(func2, arg3);
+    passHelper(func3, arg3);
+    passHelper(func4, arg3);
+    //passHelper(func5, arg3); // cannot compile, normal
+    //passHelper(func6, arg3); // cannot compile, normal
 
+    // test using const-ref-of-lvalue
+    passHelper(func1, arg4);
+    passHelper(func2, arg4);
+    //passHelper(func3, arg4); // cannot compile, normal
+    passHelper(func4, arg4);
+    //passHelper(func5, arg4); // cannot compile, normal
+    //passHelper(func6, arg4); // cannot compile, normal
+*/
+
+    // test using rvalue
+    passHelper(func1, 42);
+    passHelper(func2, 42);
+    //passHelper(func3, 42); // cannot compile, normal
+    passHelper(func4, 42);
+    passHelper(func5, 42); // rvalue is not necessarily const
+    passHelper(func6, 42);
+
+/*
+    // test passWithFlaw1
+    passWithFlaw1Helper(func3, arg1); // calculate error, flaw
+    //passWithFlaw1Helper(func5, 42); // cannot compile, flaw
+    //passWithFlaw1Helper(func6, 42); // cannot compile, flaw
+
+    // test passWithFlaw2
+    //passWithFlaw2Helper(func3, arg2); // cannot compile, flaw
+    //passWithFlaw2Helper(func5, 42); // cannot compile, flaw
+    //passWithFlaw2Helper(func6, 42); // cannot compile, flaw
+
+    // test passWithFlaw3
+    //passWithFlaw3Helper(func3, arg2); // cannot compile, flaw
+    //passWithFlaw3Helper(func5, 42); // cannot compile, flaw
+    //passWithFlaw3Helper(func6, 42); // cannot compile, flaw
+*/
     return 0;
 }
